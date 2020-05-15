@@ -59,6 +59,16 @@ import org.apache.spark.storage._
 import org.apache.spark.storage.BlockManagerMessages.TriggerThreadDump
 import org.apache.spark.ui.{ConsoleProgressBar, SparkUI}
 import org.apache.spark.util._
+//import org.apache.spark.util.logging.DriverLogger
+
+import java.io._
+import org.apache.commons._
+import org.apache.http._
+import org.apache.http.client._
+import org.apache.http.client.methods.HttpPost
+import org.apache.http.impl.client.DefaultHttpClient
+import org.apache.http.entity.StringEntity
+
 
 /**
  * Main entry point for Spark functionality. A SparkContext represents the connection to a Spark
@@ -2055,9 +2065,21 @@ class SparkContext(config: SparkConf) extends Logging {
     val callSite = getCallSite
     val cleanedFunc = clean(func)
     logInfo("Starting job: " + callSite.shortForm)
+    logInfo("RDD's recursive dependencies:\n" + rdd.toDebugString)
     if (conf.getBoolean("spark.logLineage", false)) {
       logInfo("RDD's recursive dependencies:\n" + rdd.toDebugString)
     }
+
+    val url = "http://127.0.0.1:3187/api/newdag"
+    val post = new HttpPost(url)
+    post.addHeader("Content-Type", "text/plain")
+    post.addHeader("Accept", "text/plain")
+    val client = new DefaultHttpClient
+    post.setEntity(new StringEntity("DAG:" + rdd.toDebugString))
+    // send the post request
+    val response = client.execute(post)
+
+
     dagScheduler.runJob(rdd, cleanedFunc, partitions, callSite, resultHandler, localProperties.get)
     progressBar.foreach(_.finishAll())
     rdd.doCheckpoint()

@@ -106,6 +106,26 @@
       <artifactId>zookeeper</artifactId>
     </dependency>
 
+
+    <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-aws -->
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-aws</artifactId>
+      <version>2.7.6</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk</artifactId>
+      <version>1.7.4</version>
+    </dependency>
+    <!-- Jetty dependencies promoted to compile here so they are shaded
+                  and inlined into spark-core jar -->
+
+
+
+
+
     <!-- Jetty dependencies promoted to compile here so they are shaded
          and inlined into spark-core jar -->
     <dependency>
@@ -309,6 +329,27 @@
       <artifactId>selenium-htmlunit-driver</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <!-- at least just for tests, coerce SBT to use the updated httpcore/client version -->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpmime</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+
+
+
     <!-- Added for selenium: -->
     <dependency>
       <groupId>xml-apis</groupId>
