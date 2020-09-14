@@ -2070,7 +2070,7 @@ class SparkContext(config: SparkConf) extends Logging {
       logInfo("RDD's recursive dependencies:\n" + rdd.toDebugString)
     }
 
-    val url = "http://127.0.0.1:3187/api/newdag"
+    val url = "http://neu-3-1:3187/api/newdag"
     val post = new HttpPost(url)
     post.addHeader("Content-Type", "text/plain")
     post.addHeader("Accept", "text/plain")

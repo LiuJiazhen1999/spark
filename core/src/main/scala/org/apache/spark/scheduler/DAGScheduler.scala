@@ -46,6 +46,24 @@ import org.apache.spark.storage._
 import org.apache.spark.storage.BlockManagerMessages.BlockManagerHeartbeat
 import org.apache.spark.util._
 
+/*Kariz B*/
+/*import java.io._
+import org.apache.commons._
+import org.apache.http._
+import org.apache.http.client._
+*/
+
+import org.apache.http.client._
+import org.apache.http.client.methods._
+import org.apache.http.impl.client._
+import org.apache.http.impl.client.DefaultHttpClient
+import org.apache.http.client.methods.HttpPost
+import org.apache.http.entity.StringEntity
+
+/*Kariz E*/
+
+
+
 /**
  * The high-level scheduling layer that implements stage-oriented scheduling. It computes a DAG of
  * stages for each job, keeps track of which RDDs and stage outputs are materialized, and finds a
@@ -1061,6 +1079,20 @@ private[spark] class DAGScheduler(
   private def submitStage(stage: Stage) {
     val jobId = activeJobForStage(stage)
     if (jobId.isDefined) {
+      /*Kariz B
+      val url = "http://127.0.0.1:3187/api/newstage"
+      val post = new HttpPost(url)
+      post.addHeader("Content-Type", "text/plain")
+      post.addHeader("Accept", "text/plain")
+      val client = new DefaultHttpClient
+      post.setEntity(new StringEntity(" " + stage + " (" + stage.rdd + "), which has no missing parents"+ 
+        s"submitStage($stage (name=${stage.name};" +
+        s"jobs=${stage.jobIds.toSeq.sorted.mkString(",")}))"))
+      // send the post request
+      val response = client.execute(post)
+  
+      Kariz E*/
+
       logDebug(s"submitStage($stage (name=${stage.name};" +
         s"jobs=${stage.jobIds.toSeq.sorted.mkString(",")}))")
       if (!waitingStages(stage) && !runningStages(stage) && !failedStages(stage)) {
@@ -1068,6 +1100,21 @@ private[spark] class DAGScheduler(
         logDebug("missing: " + missing)
         if (missing.isEmpty) {
           logInfo("Submitting " + stage + " (" + stage.rdd + "), which has no missing parents")
+
+            /*Kariz B*/
+      val url = "http://neu-3-1:3187/api/newstage"
+      val post = new HttpPost(url)
+      post.addHeader("Content-Type", "text/plain")
+      post.addHeader("Accept", "text/plain")
+      val client = new DefaultHttpClient
+      post.setEntity(new StringEntity("{id:" + stage + ",name:" + stage.rdd + "}")) 
+      // send the post request
+      val response = client.execute(post)
+
+      /*Kariz E*/
+
+
+
           submitMissingTasks(stage, jobId.get)
         } else {
           for (parent <- missing) {

@@ -118,12 +118,12 @@
     <sbt.project.name>spark</sbt.project.name>
     <slf4j.version>1.7.16</slf4j.version>
     <log4j.version>1.2.17</log4j.version>
-    <hadoop.version>2.6.5</hadoop.version>
+    <hadoop.version>2.8.4</hadoop.version>
     <protobuf.version>2.5.0</protobuf.version>
     <yarn.version>${hadoop.version}</yarn.version>
     <flume.version>1.6.0</flume.version>
     <zookeeper.version>3.4.6</zookeeper.version>
-    <curator.version>2.6.0</curator.version>
+    <curator.version>2.7.1</curator.version>
     <hive.group>org.spark-project.hive</hive.group>
     <!-- Version used in Maven Hive dependency -->
     <hive.version>1.2.1.spark2</hive.version>
@@ -142,9 +142,9 @@
     <codahale.metrics.version>3.1.5</codahale.metrics.version>
     <avro.version>1.8.2</avro.version>
     <avro.mapred.classifier>hadoop2</avro.mapred.classifier>
-    <aws.kinesis.client.version>1.7.4</aws.kinesis.client.version>
+    <aws.kinesis.client.version>1.10.6</aws.kinesis.client.version>
     <!-- Should be consistent with Kinesis client dependency -->
-    <aws.java.sdk.version>1.7.4</aws.java.sdk.version>
+    <aws.java.sdk.version>1.10.6</aws.java.sdk.version>
     <!-- the producer is used in tests -->
     <aws.kinesis.producer.version>0.12.8</aws.kinesis.producer.version>
     <!--  org.apache.httpcomponents/httpclient-->
@@ -312,13 +312,13 @@
     <dependency>
         <groupId>com.amazonaws</groupId>
         <artifactId>aws-java-sdk</artifactId>
-        <version>1.7.4</version>
+        <version>1.10.6</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-aws -->
     <dependency>
         <groupId>org.apache.hadoop</groupId>
         <artifactId>hadoop-aws</artifactId>
-        <version>2.7.6</version>
+        <version>2.8.4</version>
     </dependency>
 
     <dependency>
@@ -2756,9 +2756,9 @@
     </profile>
 
     <profile>
-      <id>hadoop-2.7</id>
+      <id>hadoop-2.8</id>
       <properties>
-        <hadoop.version>2.7.3</hadoop.version>
+        <hadoop.version>2.8.4</hadoop.version>
         <curator.version>2.7.1</curator.version>
       </properties>
     </profile>
